@@ -1,8 +1,9 @@
-import { List, Icon } from "@raycast/api";
+import { ActionPanel, Icon, List } from "@raycast/api";
 import { useEffect, useState } from "react";
 import { execa } from "execa";
 import { Item } from "../types";
 import { CategoryDropdown } from "./CategoryDropdown";
+import { CopyToClipboard } from "./ActionCopyToClipboard";
 import { getCategoryIcon } from "../utils";
 
 export function PasswordList() {
@@ -47,6 +48,26 @@ export function PasswordList() {
               item?.favorite ? { icon: Icon.Stars, tooltip: "Favorite item" } : {},
               { text: item.vault?.name },
             ]}
+            actions={
+              <ActionPanel>
+                {item.category === "LOGIN" && (
+                  <>
+                    <CopyToClipboard
+                      id={item.id}
+                      vault_id={item.vault.id}
+                      field="username"
+                      shortcut={{ modifiers: ["cmd"], key: "c" }}
+                    />
+                    <CopyToClipboard
+                      id={item.id}
+                      vault_id={item.vault.id}
+                      field="password"
+                      shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+                    />
+                  </>
+                )}
+              </ActionPanel>
+            }
           />
         ))
       )}

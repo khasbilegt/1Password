@@ -18,7 +18,7 @@ export function CategoryDropdown({ onCategoryChange }: { onCategoryChange: (newC
   }, []);
 
   return (
-    <List.Dropdown tooltip="Select Category" defaultValue="null" onChange={onCategoryChange}>
+    <List.Dropdown defaultValue="null" onChange={onCategoryChange} storeValue tooltip="Select Category">
       <List.Dropdown.Section title="Item Categories">
         <List.Dropdown.Item key={"000"} icon={Icon.AppWindowGrid3x3} title="All Categories" value="null" />
         {categories.map((category) => (
