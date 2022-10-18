@@ -12,14 +12,22 @@
   "commands": [
     {
       "name": "index",
-      "title": "Show List and Detail",
-      "description": "Template for showing a static list and a detail view",
-      "mode": "view"
+      "title": "My Passwords",
+      "subtitle": "1Password",
+      "description": "List of all your 1Password items. Then open in your default browser, view items in 1Password, or open items in 1Password for editing.",
+      "mode": "view",
+      "keywords": [
+        "1p",
+        "1password",
+        "password",
+        "login"
+      ]
     }
   ],
   "dependencies": {
     "@raycast/api": "^1.41.1",
-    "@raycast/utils": "^1.4.9"
+    "@raycast/utils": "^1.4.9",
+    "execa": "^6.1.0"
   },
   "devDependencies": {
     "@types/node": "16.10.3",
