@@ -1,9 +1,11 @@
-import { ActionPanel, Icon, List } from "@raycast/api";
-import { useEffect, useState } from "react";
 import { execa } from "execa";
-import { Item } from "../types";
-import { CategoryDropdown } from "./CategoryDropdown";
+import { useEffect, useState } from "react";
+
+import { ActionPanel, Icon, List } from "@raycast/api";
+
 import { CopyToClipboard } from "./ActionCopyToClipboard";
+import { CategoryDropdown } from "./CategoryDropdown";
+import { Item } from "../types";
 import { getCategoryIcon } from "../utils";
 
 export function PasswordList() {

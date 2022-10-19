@@ -1,8 +1,10 @@
-import { List, Icon } from "@raycast/api";
-import { useCachedState } from "@raycast/utils";
-import { useEffect } from "react";
-import { Category, CategoryName } from "../types";
 import { execa } from "execa";
+import { useEffect } from "react";
+
+import { Icon, List } from "@raycast/api";
+import { useCachedState } from "@raycast/utils";
+
+import { Category, CategoryName } from "../types";
 import { getCategoryIcon } from "../utils";
 
 export function CategoryDropdown({ onCategoryChange }: { onCategoryChange: (newCategory: string) => void }) {
@@ -18,7 +20,7 @@ export function CategoryDropdown({ onCategoryChange }: { onCategoryChange: (newC
   }, []);
 
   return (
-    <List.Dropdown defaultValue="null" onChange={onCategoryChange} storeValue tooltip="Select Category">
+    <List.Dropdown defaultValue="null" onChange={onCategoryChange} tooltip="Select Category" storeValue>
       <List.Dropdown.Section title="Item Categories">
         <List.Dropdown.Item key={"000"} icon={Icon.AppWindowGrid3x3} title="All Categories" value="null" />
         {categories.map((category) => (

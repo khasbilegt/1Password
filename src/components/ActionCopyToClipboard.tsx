@@ -1,5 +1,6 @@
-import { Clipboard, Icon, Action, showToast, Toast, Keyboard } from "@raycast/api";
 import { execa } from "execa";
+
+import { Action, Clipboard, Icon, Keyboard, Toast, showToast } from "@raycast/api";
 
 export function CopyToClipboard({
   id,
