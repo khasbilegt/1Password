@@ -8,7 +8,6 @@ export const DEFAULT_CATEGORY = "null";
 
 export function CategoryDropdown({ onCategoryChange }: { onCategoryChange: (newCategory: string) => void }) {
   const { data: categories } = useExec("/usr/local/bin/op", ["item", "template", "list", "--format=json"], {
-    initialData: [],
     parseOutput: ({ stdout }) =>
       (JSON.parse(stdout) as Category[]).sort((a, b) => (a.name == b.name ? 0 : a.name > b.name ? 1 : -1)),
   });

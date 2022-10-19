@@ -1,6 +1,5 @@
-import { execa } from "execa";
-
 import { Action, Clipboard, Icon, Keyboard, Toast, showToast } from "@raycast/api";
+import { useExec } from "@raycast/utils";
 
 export function CopyToClipboard({
   id,
@@ -13,6 +12,8 @@ export function CopyToClipboard({
   shortcut: Keyboard.Shortcut;
   vault_id: string;
 }) {
+  const { data } = useExec("/usr/local/bin/op", ["read", `op://${vault_id}/${id}/${field}`], { execute: false });
+
   return (
     <Action
       icon={Icon.Clipboard}
@@ -25,8 +26,7 @@ export function CopyToClipboard({
         });
 
         try {
-          const { stdout } = await execa("/usr/local/bin/op", ["read", `op://${vault_id}/${id}/${field}`]);
-          await Clipboard.copy(stdout);
+          await Clipboard.copy(data || "");
 
           toast.style = Toast.Style.Success;
           toast.title = "Copied to clipboard";

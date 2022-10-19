@@ -14,7 +14,6 @@ export function PasswordList() {
     "/usr/local/bin/op",
     category === DEFAULT_CATEGORY ? default_params : [...default_params, `--categories=${category}`],
     {
-      initialData: [],
       parseOutput: ({ stdout }) =>
         (JSON.parse(stdout) as Item[]).sort((a, b) => (a.title == b.title ? 0 : a.title > b.title ? 1 : -1)),
     }
@@ -26,7 +25,7 @@ export function PasswordList() {
 
   return (
     <List isLoading={isLoading} searchBarAccessory={<CategoryDropdown onCategoryChange={onCategoryChange} />}>
-      {items.length === 0 ? (
+      {items?.length === 0 ? (
         <List.EmptyView
           title="No items found"
           description="Any items you have added in 1Password app will be listed here."
