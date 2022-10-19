@@ -24,9 +24,20 @@
       ]
     }
   ],
+  "preferences": [
+    {
+      "name": "cliPath",
+      "type": "textfield",
+      "required": false,
+      "title": "1Password CLI Installation Path",
+      "description": "Location of the local 1Password CLI 2 installation. Defaults to '/usr/local/bin/op' on Intel and '/opt/homebrew/bin/op' on M1.",
+      "placeholder": "CLI Installation Path"
+    }
+  ],
   "dependencies": {
     "@raycast/api": "^1.41.1",
-    "@raycast/utils": "^1.4.9"
+    "@raycast/utils": "^1.4.9",
+    "execa": "^6.1.0"
   },
   "devDependencies": {
     "@types/node": "16.10.3",

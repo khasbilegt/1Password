@@ -29,3 +29,10 @@ export type Url = {
   primary: boolean;
   href: string;
 }
+
+export type User = {
+  url: string; 
+  email: string; 
+  user_uuid: string; 
+  account_uuid: string;
+}

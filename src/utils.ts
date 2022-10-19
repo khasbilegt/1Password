@@ -1,4 +1,5 @@
-import {Icon} from "@raycast/api"
+import {Cache, getPreferenceValues, Icon} from "@raycast/api"
+
 import {CategoryName} from "./types"
 
 export function getCategoryIcon(category: CategoryName) {
@@ -50,4 +51,19 @@ export function getCategoryIcon(category: CategoryName) {
     default:
       return Icon.Key;
   }
+}
+
+const PATH_CACHE_NAME = "@cliPath"
+const DEFAULT_PATH = process.arch == "arm64" ? "/opt/homebrew/bin/op" : "/usr/local/bin/op";
+
+export function getCliPath(): string {
+  const cache = new Cache()
+
+  if (cache.has(PATH_CACHE_NAME)) {
+    return (cache.get(PATH_CACHE_NAME) as string)
+  }
+
+  const path = getPreferenceValues().cliPath || DEFAULT_PATH
+  cache.set(PATH_CACHE_NAME, path)
+  return path
 }
