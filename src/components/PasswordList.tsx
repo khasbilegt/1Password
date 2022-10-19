@@ -1,7 +1,7 @@
 import { execa } from "execa";
 import { useEffect, useState } from "react";
 
-import { ActionPanel, Icon, List } from "@raycast/api";
+import { ActionPanel, Color, Icon, List } from "@raycast/api";
 import { useCachedState } from "@raycast/utils";
 
 import { CopyToClipboard } from "./ActionCopyToClipboard";
@@ -47,11 +47,11 @@ export function PasswordList() {
           <List.Item
             key={item.id}
             id={item.id}
-            icon={getCategoryIcon(item.category)}
+            icon={{ value: { source: getCategoryIcon(item.category), tintColor: Color.Blue }, tooltip: item.category }}
             title={item.title}
             subtitle={item.additional_information}
             accessories={[
-              item?.favorite ? { icon: Icon.Stars, tooltip: "Favorite item" } : {},
+              item?.favorite ? { icon: { source: Icon.Stars, tintColor: Color.Yellow }, tooltip: "Favorite item" } : {},
               { text: item.vault?.name },
             ]}
             actions={
