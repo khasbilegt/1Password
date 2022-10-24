@@ -1,6 +1,5 @@
-import { execa } from "execa";
-
 import { Action, Clipboard, Icon, Keyboard, Toast, showToast } from "@raycast/api";
+import { execFileSync } from "child_process";
 
 export function CopyToClipboard({
   id,
@@ -25,8 +24,8 @@ export function CopyToClipboard({
         });
 
         try {
-          const { stdout } = await execa("/usr/local/bin/op", ["read", `op://${vault_id}/${id}/${field}`]);
-          await Clipboard.copy(stdout);
+          const stdout = execFileSync("/usr/local/bin/op", ["read", `op://${vault_id}/${id}/${field}`]);
+          await Clipboard.copy(stdout.toString());
 
           toast.style = Toast.Style.Success;
           toast.title = "Copied to clipboard";

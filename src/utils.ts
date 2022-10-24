@@ -1,6 +1,54 @@
-import {Cache, getPreferenceValues, Icon} from "@raycast/api"
+import { Cache, Clipboard, getPreferenceValues, Icon, showToast, Toast } from "@raycast/api";
+import { execFileSync } from "child_process";
 
-import {CategoryName} from "./types"
+import { CategoryName } from "./types";
+
+const cache = new Cache();
+
+const DEFAULT_PATH = process.arch == "arm64" ? "/opt/homebrew/bin/op" : "/usr/local/bin/op";
+
+export const CATEGORIES_CACHE_NAME = "@categories";
+export const ITEMS_CACHE_NAME = "@items";
+export const PATH_CACHE_NAME = "@cliPath";
+export const PROFILE_CACHE_NAME = "@profile";
+
+export function getCliPath(): string {
+  if (cache.has(PATH_CACHE_NAME)) {
+    return cache.get(PATH_CACHE_NAME) as string;
+  }
+
+  const path = getPreferenceValues().cliPath || DEFAULT_PATH;
+  cache.set(PATH_CACHE_NAME, path);
+  return path;
+}
+
+export function execute<T>(key: string, args: string[]): T | undefined {
+  const path = getCliPath();
+
+  if (cache.has(key)) {
+    return JSON.parse(cache.get(key) as string);
+  }
+
+  try {
+    const stdout = execFileSync(path, [...args, "--format=json"]);
+    const items = stdout.toString();
+    cache.set(key, items);
+    return JSON.parse(items);
+  } catch (error: any) {
+    showToast({
+      style: Toast.Style.Failure,
+      title: "Command failed",
+      message: error?.stderr.toString(),
+      primaryAction: {
+        title: "Copy logs",
+        onAction: async (toast) => {
+          await Clipboard.copy(error?.message || error.toString());
+          toast.hide();
+        },
+      },
+    });
+  }
+}
 
 export function getCategoryIcon(category: CategoryName) {
   switch (category) {
@@ -51,19 +99,4 @@ export function getCategoryIcon(category: CategoryName) {
     default:
       return Icon.Key;
   }
-}
-
-const PATH_CACHE_NAME = "@cliPath"
-const DEFAULT_PATH = process.arch == "arm64" ? "/opt/homebrew/bin/op" : "/usr/local/bin/op";
-
-export function getCliPath(): string {
-  const cache = new Cache()
-
-  if (cache.has(PATH_CACHE_NAME)) {
-    return (cache.get(PATH_CACHE_NAME) as string)
-  }
-
-  const path = getPreferenceValues().cliPath || DEFAULT_PATH
-  cache.set(PATH_CACHE_NAME, path)
-  return path
 }
