@@ -22,6 +22,18 @@
         "password",
         "login"
       ]
+    },
+    {
+      "name": "cache",
+      "title": "Reset cache",
+      "subtitle": "1Password 8",
+      "description": "Manually reset all the cache.",
+      "mode": "no-view",
+      "keywords": [
+        "cache",
+        "reset cache",
+        "reload"
+      ]
     }
   ],
   "preferences": [

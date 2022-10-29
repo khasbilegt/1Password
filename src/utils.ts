@@ -50,6 +50,16 @@ export function execute<T>(key: string, args: string[]): T | undefined {
   }
 }
 
+export function clearCache(key?: string) {
+  if (!cache.isEmpty) {
+    if (key && cache.has(key)) {
+      cache.remove(key);
+    } else {
+      cache.clear({ notifySubscribers: false });
+    }
+  }
+}
+
 export function getCategoryIcon(category: CategoryName) {
   switch (category) {
     case "API_CREDENTIAL":
