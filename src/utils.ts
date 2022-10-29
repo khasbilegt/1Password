@@ -1,36 +1,24 @@
-import { Cache, Clipboard, getPreferenceValues, Icon, showToast, Toast } from "@raycast/api";
+import { Cache, Clipboard, environment, Icon, showToast, Toast } from "@raycast/api";
 import { execFileSync } from "child_process";
 
 import { CategoryName } from "./types";
 
 const cache = new Cache();
 
-const DEFAULT_PATH = process.arch == "arm64" ? "/opt/homebrew/bin/op" : "/usr/local/bin/op";
+const CLI_PATH =
+  `${environment.assetsPath}/op` || process.arch == "arm64" ? "/opt/homebrew/bin/op" : "/usr/local/bin/op";
 
 export const CATEGORIES_CACHE_NAME = "@categories";
 export const ITEMS_CACHE_NAME = "@items";
-export const PATH_CACHE_NAME = "@cliPath";
 export const PROFILE_CACHE_NAME = "@profile";
 
-export function getCliPath(): string {
-  if (cache.has(PATH_CACHE_NAME)) {
-    return cache.get(PATH_CACHE_NAME) as string;
-  }
-
-  const path = getPreferenceValues().cliPath || DEFAULT_PATH;
-  cache.set(PATH_CACHE_NAME, path);
-  return path;
-}
-
-export function execute<T>(key: string, args: string[]): T | undefined {
-  const path = getCliPath();
-
+export function op<T>(key: string, args: string[]): T | undefined {
   if (cache.has(key)) {
     return JSON.parse(cache.get(key) as string);
   }
 
   try {
-    const stdout = execFileSync(path, [...args, "--format=json"]);
+    const stdout = execFileSync(CLI_PATH, [...args, "--format=json"]);
     const items = stdout.toString();
     cache.set(key, items);
     return JSON.parse(items);
@@ -38,11 +26,11 @@ export function execute<T>(key: string, args: string[]): T | undefined {
     showToast({
       style: Toast.Style.Failure,
       title: "Command failed",
-      message: error?.stderr.toString(),
+      message: error?.message,
       primaryAction: {
         title: "Copy logs",
         onAction: async (toast) => {
-          await Clipboard.copy(error?.message || error.toString());
+          await Clipboard.copy(error?.message);
           toast.hide();
         },
       },

@@ -38,12 +38,21 @@
   ],
   "preferences": [
     {
-      "name": "cliPath",
-      "type": "textfield",
-      "required": false,
-      "title": "1Password CLI Installation Path",
-      "description": "Location of the local 1Password CLI 2 installation. Defaults to '/usr/local/bin/op' on Intel and '/opt/homebrew/bin/op' on M1.",
-      "placeholder": "CLI Installation Path"
+      "name": "version",
+      "type": "dropdown",
+      "title": "1Password App Version",
+      "description": "Select the version of the 1Password app you want to use",
+      "data": [
+        {
+          "title": "1Password 8",
+          "value": "v8"
+        },
+        {
+          "title": "1Password 7",
+          "value": "v7"
+        }
+      ],
+      "required": true
     }
   ],
   "dependencies": {

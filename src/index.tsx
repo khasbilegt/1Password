@@ -1,10 +1,6 @@
-import { existsSync } from "fs";
-
-import { Guide, PasswordList } from "./components";
-import { getCliPath } from "./utils";
+import { getPreferenceValues } from "@raycast/api";
+import { Guide, ItemList } from "./components";
 
 export default function Command() {
-  const path = getCliPath();
-
-  return existsSync(path) ? <PasswordList /> : <Guide />;
+  return getPreferenceValues().version == "v8" ? <ItemList /> : <Guide />;
 }

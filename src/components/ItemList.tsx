@@ -4,13 +4,13 @@ import { useCachedState } from "@raycast/utils";
 import { CopyToClipboard } from "./ActionCopyToClipboard";
 import { CategoryDropdown, DEFAULT_CATEGORY } from "./CategoryDropdown";
 import { Item, User } from "../types";
-import { execute, getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME } from "../utils";
+import { op, getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME } from "../utils";
 
-export function PasswordList() {
+export function ItemList() {
   const [category, setCategory] = useCachedState<string>("selected_cateogry", DEFAULT_CATEGORY);
 
-  const items = execute<Item[]>(ITEMS_CACHE_NAME, ["item", "list", "--long"]);
-  const profile = execute<User>(PROFILE_CACHE_NAME, ["whoami"]);
+  const items = op<Item[]>(ITEMS_CACHE_NAME, ["item", "list", "--long"]);
+  const profile = op<User>(PROFILE_CACHE_NAME, ["whoami"]);
 
   const onCategoryChange = (newCategory: string) => {
     category !== newCategory && setCategory(newCategory);
@@ -20,7 +20,7 @@ export function PasswordList() {
     <List searchBarAccessory={<CategoryDropdown onCategoryChange={onCategoryChange} />}>
       {items?.length ? (
         items
-          .sort((a, b) => (a.title == b.title ? 0 : a.title > b.title ? 1 : -1))
+          .sort((a, b) => a.title.localeCompare(b.title))
           .map((item) => (
             <List.Item
               key={item.id}
