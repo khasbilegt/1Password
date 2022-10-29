@@ -57,7 +57,8 @@
   ],
   "dependencies": {
     "@raycast/api": "^1.41.1",
-    "@raycast/utils": "^1.4.9"
+    "@raycast/utils": "^1.4.9",
+    "fast-glob": "^3.2.12"
   },
   "devDependencies": {
     "@types/node": "16.10.3",

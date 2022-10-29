@@ -1,6 +1,6 @@
 import { getPreferenceValues } from "@raycast/api";
-import { Guide, ItemList } from "./components";
+import { ItemList, MetaItemList } from "./components";
 
 export default function Command() {
-  return getPreferenceValues().version == "v8" ? <ItemList /> : <Guide />;
+  return getPreferenceValues().version == "v8" ? <ItemList /> : <MetaItemList />;
 }
