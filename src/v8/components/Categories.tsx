@@ -17,7 +17,7 @@ export function Categories({ onCategoryChange }: { onCategoryChange: (newCategor
           <List.Dropdown.Item
             key={category.uuid}
             icon={getCategoryIcon(category.name.replaceAll(" ", "_").toUpperCase() as CategoryName)}
-            title={`${category.name}s`}
+            title={category.name}
             value={category.name}
           />
         ))}
