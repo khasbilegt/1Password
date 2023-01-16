@@ -12,14 +12,19 @@ export function ItemList() {
   const items = op<Item[]>(ITEMS_CACHE_NAME, ["item", "list", "--long"]);
   const profile = op<User>(PROFILE_CACHE_NAME, ["whoami"]);
 
+  const categoryItems =
+    category === DEFAULT_CATEGORY
+      ? items
+      : items?.filter((item) => item.category === category.replaceAll(" ", "_").toUpperCase());
+
   const onCategoryChange = (newCategory: string) => {
     category !== newCategory && setCategory(newCategory);
   };
 
   return (
     <List searchBarAccessory={<CategoryDropdown onCategoryChange={onCategoryChange} />}>
-      {items?.length ? (
-        items
+      {categoryItems?.length ? (
+        categoryItems
           .sort((a, b) => a.title.localeCompare(b.title))
           .map((item) => (
             <List.Item
