@@ -2,11 +2,11 @@ import { Action, ActionPanel, Color, Icon, List } from "@raycast/api";
 import { useCachedState } from "@raycast/utils";
 
 import { CopyToClipboard } from "./ActionCopyToClipboard";
-import { CategoryDropdown, DEFAULT_CATEGORY } from "./CategoryDropdown";
+import { Categories, DEFAULT_CATEGORY } from "./Categories";
 import { Item, User } from "../types";
 import { op, getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME } from "../utils";
 
-export function ItemList() {
+export function Items() {
   const [category, setCategory] = useCachedState<string>("selected_cateogry", DEFAULT_CATEGORY);
 
   const items = op<Item[]>(ITEMS_CACHE_NAME, ["item", "list", "--long"]);
@@ -22,7 +22,7 @@ export function ItemList() {
   };
 
   return (
-    <List searchBarAccessory={<CategoryDropdown onCategoryChange={onCategoryChange} />}>
+    <List searchBarAccessory={<Categories onCategoryChange={onCategoryChange} />}>
       {categoryItems?.length ? (
         categoryItems
           .sort((a, b) => a.title.localeCompare(b.title))

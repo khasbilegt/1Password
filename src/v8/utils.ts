@@ -1,5 +1,7 @@
 import { Cache, Clipboard, environment, Icon, showToast, Toast } from "@raycast/api";
+
 import { execFileSync } from "child_process";
+
 import { CategoryName } from "./types";
 import { chmodSync, copyFileSync, existsSync } from "fs";
 

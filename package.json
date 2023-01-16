@@ -11,7 +11,7 @@
   "license": "MIT",
   "commands": [
     {
-      "name": "index",
+      "name": "item-list",
       "title": "My Passwords",
       "subtitle": "1Password 8",
       "description": "List of all your 1Password items. Then open in your default browser, view items in 1Password, or open items in 1Password for editing.",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "name": "cache",
+      "name": "reset-cache",
       "title": "Reset cache",
       "subtitle": "1Password 8",
       "description": "Manually reset all the cache.",

@@ -3,9 +3,9 @@ import { Icon, List } from "@raycast/api";
 import { Category, CategoryName } from "../types";
 import { CATEGORIES_CACHE_NAME, op, getCategoryIcon } from "../utils";
 
-export const DEFAULT_CATEGORY = "-";
+export const DEFAULT_CATEGORY = "null";
 
-export function CategoryDropdown({ onCategoryChange }: { onCategoryChange: (newCategory: string) => void }) {
+export function Categories({ onCategoryChange }: { onCategoryChange: (newCategory: string) => void }) {
   const categories = op<Category[]>(CATEGORIES_CACHE_NAME, ["item", "template", "list"]);
 
   return (

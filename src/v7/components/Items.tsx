@@ -1,19 +1,19 @@
 import { Action, ActionPanel, Color, Icon, List } from "@raycast/api";
 import { useCachedState } from "@raycast/utils";
+
 import crypto from "crypto";
 
-import { MetaCategoryDropdown, DEFAULT_META_CATEGORY } from "./MetaCategoryDropdown";
-import { getMetaItems } from "../legacyUtils";
+import { Categories, DEFAULT_CATEGORY } from "./Categories";
 import { CategoryName } from "../types";
-import { getCategoryIcon } from "../utils";
+import { getV7Items, getV7CategoryIcon } from "../utils";
 
-export function MetaItemList() {
-  const [category, setCategory] = useCachedState<string>("selected_cateogry", DEFAULT_META_CATEGORY);
+export function Items() {
+  const [category, setCategory] = useCachedState<string>("selected_cateogry", DEFAULT_CATEGORY);
 
-  const categoriesObj = getMetaItems();
+  const categoriesObj = getV7Items();
 
   const categories =
-    categoriesObj && category === DEFAULT_META_CATEGORY
+    categoriesObj && category === DEFAULT_CATEGORY
       ? Object.values(categoriesObj).sort((a, b) => a.name.localeCompare(b.name))
       : categoriesObj && [categoriesObj[category]];
 
@@ -22,7 +22,7 @@ export function MetaItemList() {
   };
 
   return (
-    <List searchBarAccessory={<MetaCategoryDropdown onCategoryChange={onCategoryChange} />}>
+    <List searchBarAccessory={<Categories onCategoryChange={onCategoryChange} />}>
       {categories?.length ? (
         categories.map((category) => (
           <List.Section key={category.id} id={category.id} title={category.name}>
@@ -32,7 +32,7 @@ export function MetaItemList() {
                 id={item.uuid}
                 icon={{
                   value: {
-                    source: getCategoryIcon(
+                    source: getV7CategoryIcon(
                       item.categorySingularName.replaceAll(" ", "_").toUpperCase() as CategoryName
                     ),
                     tintColor: Color.Blue,
