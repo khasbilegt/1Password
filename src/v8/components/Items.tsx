@@ -3,7 +3,7 @@ import { useCachedState } from "@raycast/utils";
 
 import { CopyToClipboard } from "./ActionCopyToClipboard";
 import { Categories, DEFAULT_CATEGORY } from "./Categories";
-import { Item, User } from "../types";
+import { Item, Url, User } from "../types";
 import { op, getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME } from "../utils";
 
 export function Items() {
@@ -51,9 +51,12 @@ export function Items() {
                   />
                   {item.category === "LOGIN" && (
                     <>
-                      {item.urls.find((url) => (
-                        <Action.OpenInBrowser title="Open In Browser" url={url.href} />
-                      ))}
+                      {item?.urls?.filter((url) => url.primary).length ? (
+                        <Action.OpenInBrowser
+                          title="Open In Browser"
+                          url={(item.urls.find((url) => url.primary) as Url).href}
+                        />
+                      ) : null}
                       <CopyToClipboard
                         id={item.id}
                         vault_id={item.vault.id}

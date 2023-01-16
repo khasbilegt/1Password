@@ -1,19 +1,24 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "1password8",
-  "title": "1Password8",
+  "name": "1password",
+  "title": "1Password",
   "description": "Search, open or edit your 1Password passwords from Raycast",
   "icon": "1password-icon.png",
   "author": "khasbilegt",
   "categories": [
     "Security"
   ],
+  "contributors": [
+    "thomas",
+    "dteare",
+    "pernielsentikaer"
+  ],
   "license": "MIT",
   "commands": [
     {
       "name": "item-list",
       "title": "My Passwords",
-      "subtitle": "1Password 8",
+      "subtitle": "1Password",
       "description": "List of all your 1Password items. Then open in your default browser, view items in 1Password, or open items in 1Password for editing.",
       "mode": "view",
       "keywords": [
@@ -26,7 +31,7 @@
     {
       "name": "reset-cache",
       "title": "Reset cache",
-      "subtitle": "1Password 8",
+      "subtitle": "1Password",
       "description": "Manually reset all the cache.",
       "mode": "no-view",
       "keywords": [
