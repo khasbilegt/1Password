@@ -1,4 +1,4 @@
-# 1Password v8
+# 1Password 8
 
 ## ✅ 1Password CLI 2 (Optional)
 
@@ -23,7 +23,7 @@ You can also unlock 1Password CLI with your [Apple Watch](https://support.1passw
 <br>
 <br>
 
-# 1Password v7
+# 1Password 7
 
 ## ✅ Spotlight and 3rd party app integrations is not enabled
 
