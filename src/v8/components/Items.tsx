@@ -7,7 +7,7 @@ import { Item, User } from "../types";
 import { op, getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME } from "../utils";
 
 export function Items() {
-  const [category, setCategory] = useCachedState<string>("selected_cateogry", DEFAULT_CATEGORY);
+  const [category, setCategory] = useCachedState<string>("selected_category", DEFAULT_CATEGORY);
 
   const items = op<Item[]>(ITEMS_CACHE_NAME, ["item", "list", "--long"]);
   const profile = op<User>(PROFILE_CACHE_NAME, ["whoami"]);
@@ -51,7 +51,9 @@ export function Items() {
                   />
                   {item.category === "LOGIN" && (
                     <>
-                      <Action.OpenInBrowser title="Open In Browser" url="" />
+                      {item.urls.find((url) => (
+                        <Action.OpenInBrowser title="Open In Browser" url={url.href} />
+                      ))}
                       <CopyToClipboard
                         id={item.id}
                         vault_id={item.vault.id}

@@ -8,7 +8,7 @@ import { CategoryName } from "../types";
 import { getV7Items, getV7CategoryIcon } from "../utils";
 
 export function Items() {
-  const [category, setCategory] = useCachedState<string>("selected_cateogry", DEFAULT_CATEGORY);
+  const [category, setCategory] = useCachedState<string>("selected_category", DEFAULT_CATEGORY);
 
   const categoriesObj = getV7Items();
 
