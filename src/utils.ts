@@ -1,13 +1,12 @@
 import { Cache, Clipboard, environment, Icon, showToast, Toast } from "@raycast/api";
 import { execFileSync } from "child_process";
-
 import { CategoryName } from "./types";
+import { chmodSync, copyFileSync, existsSync } from "fs";
 
 const cache = new Cache();
 
-const CLI_PATH =
-  `${environment.assetsPath}/op` || process.arch == "arm64" ? "/opt/homebrew/bin/op" : "/usr/local/bin/op";
-
+export const BINARY_PATH = `${environment.assetsPath}/op`;
+export const CLI_PATH = `/usr/local/bin/op`;
 export const CATEGORIES_CACHE_NAME = "@categories";
 export const ITEMS_CACHE_NAME = "@items";
 export const PROFILE_CACHE_NAME = "@profile";
@@ -18,6 +17,10 @@ export function op<T>(key: string, args: string[]): T | undefined {
   }
 
   try {
+    if (!existsSync(CLI_PATH)) {
+      chmodSync(BINARY_PATH, 0o755);
+      copyFileSync(BINARY_PATH, CLI_PATH);
+    }
     const stdout = execFileSync(CLI_PATH, [...args, "--format=json"]);
     const items = stdout.toString();
     cache.set(key, items);

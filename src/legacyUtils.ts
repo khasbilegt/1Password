@@ -66,7 +66,6 @@ export function getCategoryIcon(categoryUUID: string, categoryName: string) {
       return Icon.HardDrive;
     case "103": // Driver License
       return Icon.Car;
-
     case "112": // API
       return Icon.Code;
     default:
