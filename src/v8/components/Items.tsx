@@ -61,13 +61,13 @@ export function Items() {
                         id={item.id}
                         vault_id={item.vault.id}
                         field="username"
-                        shortcut={{ modifiers: ["cmd"], key: "c" }}
+                        shortcut={{ modifiers: ["cmd"], key: "u" }}
                       />
                       <CopyToClipboard
                         id={item.id}
                         vault_id={item.vault.id}
                         field="password"
-                        shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+                        shortcut={{ modifiers: ["cmd"], key: "p" }}
                       />
                     </>
                   )}
