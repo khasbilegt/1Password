@@ -56,10 +56,17 @@ export function CopyToClipboard({
 
           toast.style = Toast.Style.Success;
           toast.title = "Copied to clipboard";
-        } catch (error) {
+        } catch (error: any) {
           toast.style = Toast.Style.Failure;
           toast.title = "Failed to copy";
           toast.message = error instanceof Error ? error.message : undefined;
+          toast.primaryAction = {
+            title: "Copy logs",
+            onAction: async (toast) => {
+              await Clipboard.copy(error?.message);
+              toast.hide();
+            },
+          };
         }
       }}
     />
