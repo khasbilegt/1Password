@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 import { CategoryName } from "./types";
 
-const cache = new Cache({ namespace: "1password" });
+export const cache = new Cache();
 
 export const BINARY_PATH = `${environment.assetsPath}/op`;
 export const CLI_PATH = `/usr/local/bin/op`;
