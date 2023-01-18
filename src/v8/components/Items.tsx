@@ -8,24 +8,24 @@ import { getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME, useOp } from "..
 import { Guide } from "../../guide-view";
 
 export function Items() {
+  console.log(">>>>>> RENDER <<<<<<<");
   const [category, setCategory] = useCachedState<string>("selected_category", DEFAULT_CATEGORY);
 
-  const {
-    data: items,
-    error: itemsError,
-    isLoading: itemsIsLoading,
-  } = useOp<Item[]>(ITEMS_CACHE_NAME, ["item", "list", "--long"]);
   const {
     data: profile,
     error: profileError,
     isLoading: profileIsLoading,
-  } = useOp<User>(PROFILE_CACHE_NAME, ["whoami"]);
+  } = useOp<User>(["whoami"], PROFILE_CACHE_NAME);
+  const {
+    data: items,
+    error: itemsError,
+    isLoading: itemsIsLoading,
+  } = useOp<Item[]>(["item", "list", "--long"], ITEMS_CACHE_NAME);
 
   const categoryItems =
     category === DEFAULT_CATEGORY
       ? items
       : items?.filter((item) => item.category === category.replaceAll(" ", "_").toUpperCase());
-
   const onCategoryChange = (newCategory: string) => {
     category !== newCategory && setCategory(newCategory);
   };
