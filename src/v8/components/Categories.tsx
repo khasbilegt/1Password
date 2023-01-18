@@ -1,6 +1,6 @@
 import { Icon, List } from "@raycast/api";
 
-import { Guide } from "../../guide-view";
+import { Guide } from "./Guide";
 import { Category, CategoryName } from "../types";
 import { CATEGORIES_CACHE_NAME, getCategoryIcon, useOp } from "../utils";
 

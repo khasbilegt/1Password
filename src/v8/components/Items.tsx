@@ -5,7 +5,7 @@ import { CopyToClipboard } from "./ActionCopyToClipboard";
 import { Categories, DEFAULT_CATEGORY } from "./Categories";
 import { Item, Url, User } from "../types";
 import { getCategoryIcon, ITEMS_CACHE_NAME, ACCOUNT_CACHE_NAME, useOp } from "../utils";
-import { Guide } from "../../guide-view";
+import { Guide } from "./Guide";
 
 export function Items() {
   console.log(">>>>>> RENDER <<<<<<<");
@@ -30,7 +30,7 @@ export function Items() {
     category !== newCategory && setCategory(newCategory);
   };
 
-  if (itemsError || accountError) return <Guide />;
+  if (!itemsError || accountError) return <Guide />;
   return (
     <List
       searchBarAccessory={<Categories onCategoryChange={onCategoryChange} />}
