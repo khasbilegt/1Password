@@ -1,18 +1,18 @@
-import { Action, ActionPanel, Form, getPreferenceValues, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Clipboard, Form, getPreferenceValues, showToast, Toast } from "@raycast/api";
 import { useState } from "react";
 
 import { Items as V7Items } from "./v7/components/Items";
 import { Items } from "./v8/components/Items";
 import { User } from "./v8/types";
-import { op, PROFILE_CACHE_NAME, useOp, cache } from "./v8/utils";
+import { op, ACCOUNT_CACHE_NAME, useOp, cache } from "./v8/utils";
 import { Guide } from "./guide-view";
 
 function AccountForm() {
-  const [hasProfile, setHasProfile] = useState<boolean | undefined>(cache.has(PROFILE_CACHE_NAME));
+  const [hasAccount, setHasAccount] = useState<boolean | undefined>(cache.has(ACCOUNT_CACHE_NAME));
   const { data, error, isLoading } = useOp<User[]>(["account", "list"]);
 
   if (error) return <Guide />;
-  if (hasProfile) return <Items />;
+  if (hasAccount) return <Items />;
   return (
     <Form
       isLoading={isLoading}
@@ -29,15 +29,22 @@ function AccountForm() {
 
               try {
                 op(["signin", "--account", values.account]);
+                setHasAccount(true);
 
                 toast.style = Toast.Style.Success;
                 toast.title = "Signed in";
-                setHasProfile(true);
               } catch (error) {
                 toast.style = Toast.Style.Failure;
                 toast.title = "Failed to sign in";
                 if (error instanceof Error) {
                   toast.message = error.message;
+                  toast.primaryAction = {
+                    title: "Copy logs",
+                    onAction: async (toast) => {
+                      await Clipboard.copy((error as Error).message);
+                      toast.hide();
+                    },
+                  };
                 }
               }
             }}

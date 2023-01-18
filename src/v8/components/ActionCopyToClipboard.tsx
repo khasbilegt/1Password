@@ -64,7 +64,7 @@ export function CopyToClipboard({
             toast.primaryAction = {
               title: "Copy logs",
               onAction: async (toast) => {
-                await Clipboard.copy(error?.message);
+                await Clipboard.copy((error as Error).message);
                 toast.hide();
               },
             };

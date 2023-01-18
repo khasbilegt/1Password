@@ -12,7 +12,7 @@ export const BINARY_PATH = `${environment.assetsPath}/op`;
 export const CLI_PATH = `/usr/local/bin/op`;
 export const CATEGORIES_CACHE_NAME = "@categories";
 export const ITEMS_CACHE_NAME = "@items";
-export const PROFILE_CACHE_NAME = "@profile";
+export const ACCOUNT_CACHE_NAME = "@account";
 
 export function op(args: string[]) {
   if (!existsSync(CLI_PATH)) {

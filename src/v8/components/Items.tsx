@@ -4,7 +4,7 @@ import { useCachedState } from "@raycast/utils";
 import { CopyToClipboard } from "./ActionCopyToClipboard";
 import { Categories, DEFAULT_CATEGORY } from "./Categories";
 import { Item, Url, User } from "../types";
-import { getCategoryIcon, ITEMS_CACHE_NAME, PROFILE_CACHE_NAME, useOp } from "../utils";
+import { getCategoryIcon, ITEMS_CACHE_NAME, ACCOUNT_CACHE_NAME, useOp } from "../utils";
 import { Guide } from "../../guide-view";
 
 export function Items() {
@@ -12,10 +12,10 @@ export function Items() {
   const [category, setCategory] = useCachedState<string>("selected_category", DEFAULT_CATEGORY);
 
   const {
-    data: profile,
-    error: profileError,
-    isLoading: profileIsLoading,
-  } = useOp<User>(["whoami"], PROFILE_CACHE_NAME);
+    data: account,
+    error: accountError,
+    isLoading: accountIsLoading,
+  } = useOp<User>(["whoami"], ACCOUNT_CACHE_NAME);
   const {
     data: items,
     error: itemsError,
@@ -30,11 +30,11 @@ export function Items() {
     category !== newCategory && setCategory(newCategory);
   };
 
-  if (itemsError || profileError) return <Guide />;
+  if (itemsError || accountError) return <Guide />;
   return (
     <List
       searchBarAccessory={<Categories onCategoryChange={onCategoryChange} />}
-      isLoading={itemsIsLoading || profileIsLoading}
+      isLoading={itemsIsLoading || accountIsLoading}
     >
       {categoryItems?.length ? (
         categoryItems
@@ -59,7 +59,7 @@ export function Items() {
                 <ActionPanel>
                   <Action.Open
                     title="Open In 1Password"
-                    target={`onepassword://view-item/?a=${profile?.account_uuid}&v=${item.vault.id}&i=${item.id}`}
+                    target={`onepassword://view-item/?a=${account?.account_uuid}&v=${item.vault.id}&i=${item.id}`}
                     application="com.1password.1password"
                   />
                   {item.category === "LOGIN" && (
