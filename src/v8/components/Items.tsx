@@ -8,7 +8,6 @@ import { getCategoryIcon, ITEMS_CACHE_NAME, ACCOUNT_CACHE_NAME, useOp } from "..
 import { Guide } from "./Guide";
 
 export function Items() {
-  console.log(">>>>>> RENDER <<<<<<<");
   const [category, setCategory] = useCachedState<string>("selected_category", DEFAULT_CATEGORY);
 
   const {
@@ -30,7 +29,7 @@ export function Items() {
     category !== newCategory && setCategory(newCategory);
   };
 
-  if (!itemsError || accountError) return <Guide />;
+  if (itemsError || accountError) return <Guide />;
   return (
     <List
       searchBarAccessory={<Categories onCategoryChange={onCategoryChange} />}
@@ -70,18 +69,20 @@ export function Items() {
                           url={(item.urls.find((url) => url.primary) as Url).href}
                         />
                       ) : null}
-                      <CopyToClipboard
-                        id={item.id}
-                        vault_id={item.vault.id}
-                        field="username"
-                        shortcut={{ modifiers: ["cmd"], key: "c" }}
-                      />
-                      <CopyToClipboard
-                        id={item.id}
-                        vault_id={item.vault.id}
-                        field="password"
-                        shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
-                      />
+                      <ActionPanel.Section>
+                        <CopyToClipboard
+                          id={item.id}
+                          vault_id={item.vault.id}
+                          field="username"
+                          shortcut={{ modifiers: ["cmd", "shift"], key: "c" }}
+                        />
+                        <CopyToClipboard
+                          id={item.id}
+                          vault_id={item.vault.id}
+                          field="password"
+                          shortcut={{ modifiers: ["cmd", "opt"], key: "c" }}
+                        />
+                      </ActionPanel.Section>
                     </>
                   )}
                 </ActionPanel>

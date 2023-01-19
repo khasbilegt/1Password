@@ -1,4 +1,4 @@
-import { Action, ActionPanel, Clipboard, Form, showToast, Toast } from "@raycast/api";
+import { Action, ActionPanel, Clipboard, Form, Icon, showToast, Toast } from "@raycast/api";
 import { useState } from "react";
 
 import { Items } from "./Items";
@@ -19,8 +19,8 @@ export function AccountForm() {
         <ActionPanel>
           <Action.SubmitForm
             title="Sign In"
+            icon={Icon.Key}
             onSubmit={async (values) => {
-              console.log("Signing in...");
               const toast = await showToast({
                 style: Toast.Style.Animated,
                 title: "Signing in...",
